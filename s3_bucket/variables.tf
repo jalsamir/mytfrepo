@@ -3,3 +3,4 @@ variable "custom_bucket_policy" {
   type        = "string"
   default     = ""
 }
+variable "vpc_id" {}

@@ -31,3 +31,58 @@ resource "aws_s3_bucket_policy" "my_s3_bucket" {
 }
 POLICY
 }
+
+resource "aws_s3_bucket" "elblogs" {
+	bucket = "mywebapp-elb-logs"
+}
+data "aws_elb_service_account" "main" {}
+resource "aws_s3_bucket_policy" "elblogs" {
+  bucket = "${aws_s3_bucket.elblogs.id}"
+
+  policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Id": "AWSConsole-AccessLogs-Policy-1545414334554",
+    "Statement": [
+        {
+            "Sid": "AWSConsoleStmt-1545414334554",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": ["${data.aws_elb_service_account.main.arn}"]
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::mywebapp-elb-logs/AWSLogs/987933085652/*"
+        },
+        {
+            "Sid": "AWSLogDeliveryWrite",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "delivery.logs.amazonaws.com"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::mywebapp-elb-logs/AWSLogs/987933085652/*",
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+            }
+        },
+        {
+            "Sid": "AWSLogDeliveryAclCheck",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "delivery.logs.amazonaws.com"
+            },
+            "Action": "s3:GetBucketAcl",
+            "Resource": "arn:aws:s3:::mywebapp-elb-logs"
+        }
+    ]
+}
+POLICY
+}
+output "elblogs" {
+	value = "${aws_s3_bucket.elblogs.bucket}"
+}
+output "elb_s3_bucket_arn" {
+	value = "${aws_s3_bucket.elblogs.arn}"
+}
