@@ -32,6 +32,36 @@ resource "aws_s3_bucket_policy" "my_s3_bucket" {
 POLICY
 }
 
+resource "aws_s3_bucket_object" "index" {
+    bucket = "${aws_s3_bucket.my_s3_bucket.id}"
+    key = "index.html"
+    source = "./s3_bucket/index.html"
+
+    depends_on = ["aws_s3_bucket.my_s3_bucket"]
+}
+resource "aws_s3_bucket_object" "az2a" {
+    bucket = "${aws_s3_bucket.my_s3_bucket.id}"
+    key = "AZ2A.html"
+    source = "./s3_bucket/AZ2A.html"
+
+    depends_on = ["aws_s3_bucket.my_s3_bucket"]
+}
+resource "aws_s3_bucket_object" "az2b" {
+    bucket = "${aws_s3_bucket.my_s3_bucket.id}"
+    key = "AZ2B.html"
+    source = "./s3_bucket/AZ2B.html"
+
+    depends_on = ["aws_s3_bucket.my_s3_bucket"]
+}
+resource "aws_s3_bucket_object" "az2c" {
+    bucket = "${aws_s3_bucket.my_s3_bucket.id}"
+    key = "AZ2C.html"
+    source = "./s3_bucket/AZ2C.html"
+
+    depends_on = ["aws_s3_bucket.my_s3_bucket"]
+}
+
+
 resource "aws_s3_bucket" "elblogs" {
 	bucket = "mywebapp-elb-logs"
 }

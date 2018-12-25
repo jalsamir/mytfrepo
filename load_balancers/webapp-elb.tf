@@ -26,3 +26,6 @@ resource "aws_elb" "mywebapp_elb" {
 output "mywebapp_elb_name" {
   value = "${aws_elb.mywebapp_elb.name}"
 }
+output "mywebapp_elb_dns" {
+  value = "${aws_elb.mywebapp_elb.dns_name}"
+}
