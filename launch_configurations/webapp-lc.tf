@@ -58,13 +58,7 @@ resource "aws_launch_configuration" "mywebapp_lc" {
     "${var.mywebapp_ssh_inbound_sg_id}",
     "${var.mywebapp_outbound_sg_id}"
   ]
-  #user_data = "${file("./launch_configurations/userdata.sh")}"
-  user_data = <<-EOF
-			#!/bin/bash
-			yum -y install httpd
-			service httpd start
-			chkconfig httpd on
-			EOF
+  user_data = "${file("./launch_configurations/userdata.sh")}"
   key_name = "${var.key_name}"
 }
 output "mywebapp_lc_id" {
