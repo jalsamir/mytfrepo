@@ -2,7 +2,8 @@
 Build AWS web app running apache web server.
 
 
-Builds following services
+Builds Following Services
+
     VPC
     Ineternget Gateway
     Public Subnet (for load balancers)
