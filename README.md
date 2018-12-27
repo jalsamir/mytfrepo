@@ -23,5 +23,5 @@ Builds Following Services
       key_name = "Your EC2 Key Name"
       ip_range = "Your Public IP"
 
-if you have already setup your aws profile for cli then remove access key and secrte key from variables.
+if you have already setup your aws profile for cli then remove access key and secret key from variables.
 
