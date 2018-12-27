@@ -52,7 +52,6 @@ resource "aws_launch_configuration" "mywebapp_lc" {
   image_id = "${var.amis}"
   instance_type = "${var.instance_type}"
   iam_instance_profile = "${aws_iam_instance_profile.myapp_instance_profile.id}"
-  associate_public_ip_address = false
   security_groups = [
     "${var.mywebapp_http_inbound_sg_id}",
     "${var.mywebapp_ssh_inbound_sg_id}",

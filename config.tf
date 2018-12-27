@@ -6,9 +6,16 @@ provider "aws"{
 module "baseinfra" {
   source = "./baseinfra"
   ip_range = "${var.ip_range}"
+  vpc_cidr = "${var.vpc_cidr}"
+  availability_zones = "${var.availability_zones}"
+  vpc_pub_subnet_ips = "${var.vpc_pub_subnet_ips}"
+  vpc_pri_subnet_ips = "${var.vpc_pri_subnet_ips}"
+  vpc_pub_subnet_names = "${var.vpc_pub_subnet_names}"
+  vpc_pri_subnet_names = "${var.vpc_pri_subnet_names}"
 }
 module "s3_bucket" {
   source = "./s3_bucket"
+  region     = "${var.region}"
   vpc_id = "${module.baseinfra.vpc_id}"
 }
 module "launch_configurations" {
@@ -18,6 +25,7 @@ module "launch_configurations" {
   mywebapp_outbound_sg_id = "${module.baseinfra.mywebapp_outbound_sg_id}"
   key_name = "${var.key_name}"
   amis = "${var.amis}"
+  instance_type = "${var.instance_type}"
 }
 
 module "load_balancers" {
@@ -30,6 +38,8 @@ module "load_balancers" {
 }
 module "autoscaling_groups" {
   source = "./autoscaling_groups"
+  asg_min = "${var.asg_min}"
+  asg_max = "${var.asg_max}"
   availability_zones = "${var.availability_zones}"
   private_subnets_id = ["${module.baseinfra.private_subnets_id}"]
   mywebapp_lc_id = "${module.launch_configurations.mywebapp_lc_id}"

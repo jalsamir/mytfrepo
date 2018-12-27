@@ -1,7 +1,5 @@
 variable key_name  {}
-variable "instance_type" {
-  default = "t2.micro"
-}
+variable "instance_type" {}
 variable "amis" {}
 #
 # From other modules

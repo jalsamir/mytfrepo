@@ -81,7 +81,7 @@ resource "aws_subnet" "public_subnets" {
   count             = "${length(var.vpc_pub_subnet_ips)}"
   vpc_id            = "${aws_vpc.my_vpc.id}"
   cidr_block        = "${element(var.vpc_pub_subnet_ips, count.index)}"
-  availability_zone = "${element(var.vpc_pub_subnet_azs, count.index)}"
+  availability_zone = "${element(var.availability_zones, count.index)}"
   depends_on = ["aws_vpc.my_vpc"]
   tags {
     Name = "${element(var.vpc_pub_subnet_names, count.index)}"
@@ -119,7 +119,7 @@ resource "aws_subnet" "private_subnets" {
   count             = "${length(var.vpc_pri_subnet_ips)}"
   vpc_id            = "${aws_vpc.my_vpc.id}"
   cidr_block        = "${element(var.vpc_pri_subnet_ips, count.index)}"
-  availability_zone = "${element(var.vpc_pri_subnet_azs, count.index)}"
+  availability_zone = "${element(var.availability_zones, count.index)}"
   depends_on = ["aws_vpc.my_vpc"]
   tags {
     Name = "${element(var.vpc_pri_subnet_names, count.index)}"

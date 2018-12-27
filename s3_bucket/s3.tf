@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "my_s3_bucket" {
   bucket = "my-app-testing-bucket"
   acl    = "private"
+  region = "${var.region}"
   versioning {
     enabled = true
   }
@@ -64,6 +65,8 @@ resource "aws_s3_bucket_object" "az2c" {
 
 resource "aws_s3_bucket" "elblogs" {
 	bucket = "mywebapp-elb-logs"
+	acl    = "private"
+	region = "${var.region}"
 }
 data "aws_elb_service_account" "main" {}
 resource "aws_s3_bucket_policy" "elblogs" {

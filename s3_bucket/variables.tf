@@ -4,3 +4,4 @@ variable "custom_bucket_policy" {
   default     = ""
 }
 variable "vpc_id" {}
+variable "region" {}

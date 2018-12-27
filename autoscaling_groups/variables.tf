@@ -1,10 +1,6 @@
 variable "availability_zones" {}
-variable "asg_min" {
-  default = "3"
-}
-variable "asg_max" {
-  default = "3"
-}
+variable "asg_min" {}
+variable "asg_max" {}
 #
 # From other modules
 #
